@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { slide } from 'svelte/transition';
 	import Field from './fields/Field.svelte';
 	import ArrowBarRight from './icons/ArrowBarRight.svelte';
 	import ArrowReturnLeft from './icons/ArrowReturnLeft.svelte';
@@ -15,11 +14,31 @@
 			config: DevFormConfig;
 			index: number;
 		}) => void;
+		beforeNext?: (props: {
+			slideConfig: SlideFieldConfig | InitialSlideConfig | FinalSlideConfig;
+			config: DevFormConfig;
+			index: number;
+		}) => boolean;
 	};
 
 	let { slideConfig, config, index, onNext, isFocus }: Props = $props();
 
-	
+	let showError = $state(false);
+	let errorMessage = $state((slideConfig as SlideFieldConfig).errorMessage);
+
+	let fieldRef: Field | null = $state(null);
+	export async function beforeNext() {
+		showError = false;
+		if (!fieldRef) return false;
+		const isValid = await fieldRef.isValid();
+		// console.log({ isValid })
+		if(!isValid) {
+			showError = true;
+			return false;
+		};
+		showError = false;
+		return true;
+	}
 
 </script>
 
@@ -40,8 +59,13 @@
 				<Field
 					isFocus={!!isFocus}
 					config={slideConfig as SlideFieldConfig}
+					bind:this={fieldRef}
 				/>
       {/if}
+
+			{#if showError}
+				<p class="error-message">{errorMessage || "Please check the input and try again"}</p>
+			{/if}
 			<div class="action">
 				<button class="btn-submit" onclick={() => onNext?.({ slideConfig, config, index })}>
 					{slideConfig?.labelNext || 'Next'}
@@ -151,6 +175,11 @@
 		}
 	}
 
+	.error-message { 
+		color: #ff4a4a;
+		font-weight: bold;
+		margin-top: 24px;
+	}
 	:global(.btn-submit svg) {
 		scale: 1.1;
 	}

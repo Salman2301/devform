@@ -14,18 +14,12 @@
 	let totalSlide: number = $derived(config.slides.length + (hasInitialSlide ? 1 : 0));
 	let percent: number = $state(0);
 
+	let buildSlideFieldRefs: Array<BuildSlide> = $state([]);
+	let currentFieldIndex = $derived(currentIndex - (hasInitialSlide ? 1 : 0));
+
 	$effect(() => {
 		percent = ((currentIndex + 1) / (totalSlide + 1)) * 100;
 	});
-
-	function handleKeyUp(e: KeyboardEvent) {
-		if (e.key === 'Escape') {
-		}
-		if (e.key === 'Enter') {
-			if (e.shiftKey) handlePrev();
-			else handleNext();
-		}
-	}
 
 	function handlePrev() {
 		if (currentIndex === 0) return;
@@ -33,19 +27,25 @@
 		goto();
 	}
 
-	function handleNext() {
+	async function handleNext(checkValidation?: boolean) {
 		if (currentIndex === totalSlide) return;
+		if (checkValidation) {
+			const buildSlideFieldRef = buildSlideFieldRefs[currentFieldIndex];
+			if(buildSlideFieldRef?.beforeNext) {
+				const isValid = await buildSlideFieldRef?.beforeNext?.();
+				if(!isValid) return;
+			}
+		}
 		currentIndex = currentIndex + 1;
 		goto();
 	}
 
-	function goto(index = currentIndex) {
+	function goto() {
 		setTimeout(() => {
-			let container = document.querySelector('.content');
-			if (!container) return;
-			let secondDiv = container.children[index];
-			secondDiv.scrollIntoView();
-			index++;
+			let content = document.querySelector('.content');
+			if (!content) return;
+			let slideContianer = content.children[currentIndex];
+			slideContianer.scrollIntoView();
 		}, 40); // without setTimeout smooth scrolling is not working when using button click ( Next )
 	}
 
@@ -72,14 +72,16 @@
 	function handleKeyDown(e: KeyboardEvent) {
 		if (e.key.startsWith('Arrow')) {
 			e.preventDefault();
-			handleArrowKey(e.key);
+			const key = e.key;
+			if (key === "ArrowLeft" || key === "ArrowUp") handlePrev();
+			if (key === "ArrowRight" || key === "ArrowDown") handleNext();
+		}
+		else if (e.key === 'Enter') {
+			if (e.shiftKey) handlePrev();
+			else handleNext(true);
 		}
 	}
 
-	function handleArrowKey(key: string) {
-		if (key === 'ArrowLeft' || key === 'ArrowUp') handlePrev();
-		if (key === 'ArrowRight' || key === 'ArrowDown') handleNext();
-	}
 </script>
 
 <svelte:head>
@@ -88,7 +90,7 @@
 	{/if}
 </svelte:head>
 
-<svelte:window on:keyup={handleKeyUp} on:keydown={handleKeyDown} />
+<svelte:window on:keydown={handleKeyDown} />
 
 <div class="dev-form-container" style={styleVar}>
 	<div
@@ -103,7 +105,7 @@
 				slideConfig={config.initialSlide!}
 				{config}
 				index={0}
-				onNext={handleNext}
+				onNext={()=>handleNext()}
 				isFocus={currentIndex === 0}
 			/>
 		{/if}
@@ -112,7 +114,8 @@
 				{slideConfig}
 				{config}
 				index={index + 1}
-				onNext={handleNext}
+				onNext={()=>handleNext()}
+				bind:this={buildSlideFieldRefs[index]}
 				isFocus={currentIndex === (index + (hasInitialSlide ? 1 : 0))}
 			/>
 		{/each}
@@ -120,7 +123,7 @@
 			slideConfig={config.finalSlide!}
 			{config}
 			index={totalSlide}
-			onNext={handleNext}
+			onNext={()=>handleNext()}
 			isFocus={currentIndex === totalSlide}
 		/>
 	</div>

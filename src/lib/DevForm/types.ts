@@ -38,6 +38,8 @@ type BaseSlideConfig = {
 	title?: string;
 	description?: string;
 	labelNext?: string;
+	required?: boolean;
+	validate?: () => Promise<boolean>;
 };
 
 type InitialSlideConfig = {
@@ -97,5 +99,5 @@ type FieldFormatPassword = {
 
 type FieldFormatCustom = {
 	formatType: 'custom';
-	regex?: string;
+	customFormat: ( value: string, config: SlideFieldConfig) => boolean;
 } & BaseFieldInput;
