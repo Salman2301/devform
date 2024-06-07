@@ -30,10 +30,21 @@
 	function handlePrev() {
 		if( currentIndex === 0) return;
 		currentIndex = currentIndex - 1;
+		goto();
 	}
+	
 	function handleNext() {
 		if (currentIndex === totalSlide) return;
 		currentIndex = currentIndex + 1;
+		goto();
+	}
+
+	function goto(index=currentIndex) {
+		let container = document.querySelector('.content');
+		if(!container) return;
+		let secondDiv = container.children[index]; // Select the second div
+		secondDiv.scrollIntoView(); // Scroll to the second div
+		index++;
 	}
 
 
@@ -75,32 +86,35 @@
 		data-total-slide={totalSlide}
 	></div>
 	<div class="content">
-		{#if currentIndex === 0}
+		{#if config.initialSlide?.show}
 			<BuildSlide
 				slideConfig={config.initialSlide!}
 				{config}
 				index={0}
 				onNext={handleNext}
+				isFocus={currentIndex === 0}
 			/>
 		{/if}
 		{#each config.slides as slideConfig, index}
-			{#if currentIndex === index - (hasInitialSlide ? 1 : 0)}
+			<!-- {#if currentIndex === index - (hasInitialSlide ? 1 : 0)} -->
 				<BuildSlide
 					{slideConfig}
 					{config}
 					index={index + 1}
 					onNext={handleNext}
+					isFocus={currentIndex === index - (hasInitialSlide ? 1 : 0)}
 				/>
-			{/if}
+			<!-- {/if} -->
 		{/each}
-		{#if currentIndex === totalSlide}
+		<!-- {#if currentIndex === totalSlide} -->
 			<BuildSlide
 				slideConfig={config.finalSlide!}
 				{config}
 				index={totalSlide}
 				onNext={handleNext}
+				isFocus={currentIndex === totalSlide}
 			/>
-		{/if}
+		<!-- {/if} -->
 	</div>
 </div>
 
@@ -133,9 +147,13 @@
 
 
 	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+
+		width: 100%;
+		height: 100%;
+
+		overflow: clip;
+		overflow-y: hidden;
+		scroll-behavior: smooth;
+		scroll-snap-type: y mandatory;
 	}
 </style>

@@ -3,18 +3,17 @@
   import ArrowReturnLeft from "../icons/ArrowReturnLeft.svelte";
 	import ArrowRightShort from "../icons/ArrowRightShort.svelte";
 
-  import { fade } from "svelte/transition";
-
 	type Props = {
 		slideConfig: SlideConfig | InitialSlideConfig | FinalSlideConfig;
 		config: DevFormConfig;
+    isFocus?: boolean;
 		index: number;
     onNext?: (props: { slideConfig: SlideConfig | InitialSlideConfig | FinalSlideConfig; config: DevFormConfig; index: number }) => void;
 	};
-	let { slideConfig, config, index, onNext }: Props = $props();
+	let { slideConfig, config, index, onNext,isFocus }: Props = $props();
 </script>
 
-<div class="slide-container" >
+<div class="slide-container" inert={!isFocus}>
   <div class="slide-body">
     <div class="slide-number">
       <span class="index">{index + 1}</span>
@@ -46,16 +45,13 @@
 	.slide-container {
 		width: 100%;
 		height: 100%;
-		/* background-color: rgba(255, 255, 255, 0.5); */
 		background-color: var(--dev-form-background-color);
-		position: absolute;
-
-    border: 1px solid red;
 
 		display: flex;
 		align-items: center;
 		justify-content: center;
 
+    scroll-snap-align: start;
 	}
   .slide-number {
     padding-top: 6px;
