@@ -99,15 +99,15 @@
 	}
 
 	h1 {
-		margin-bottom: 24px;
+		margin-bottom: 12px;
 		font-size: var(--dev-form-font-size);
 		color: rgb(var(--dev-form-font-color-rgb));
 	}
 
 	.description {
 		color: #a3a3a3;
-		font-weight: semibold;
-		margin-bottom: 12px;
+		font-weight: bold;
+		margin-bottom: 24px;
 	}
 
 	.slide-body {

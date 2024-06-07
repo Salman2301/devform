@@ -13,8 +13,8 @@ export let defaultConfig: DevFormConfig = {
 			}
 		],
 		styles: {
-			backgroundColor: 'white',
-			brandColorRGB: '0, 123, 255',
+			backgroundColor: 'aliceblue',
+			brandColorRGB: '255, 1, 255',
 			fontColorRGB: '0, 0, 0',
 			fontFamily: "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif",
 			fontSize: '36px',
@@ -33,7 +33,7 @@ export let defaultConfig: DevFormConfig = {
 			type: "select",
 			options: ["Some option", "Other option", "Some other option", "This is a long text options and it will be scrollable"],
 			title: 'Multiple options',
-			description: 'Use keypad to select multiple options and Enter to continue',
+			description: 'Use keypad 1 to 4 to select multiple options and Enter to continue',
 			required: true,
 			multiple: true
 		},

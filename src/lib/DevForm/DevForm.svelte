@@ -145,6 +145,11 @@
 		font-family: var(--dev-form-font-family);
 	}
 
+	:global(.dev-form-container ::selection) {
+		color: white;
+		background: rgb(var(--dev-form-brand-color-rgb));
+	}
+
 	.dev-form-container {
 		width: 100vw;
 		height: 100vh;
