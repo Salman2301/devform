@@ -43,7 +43,7 @@ export let defaultConfig: DevFormConfig = {
 		show: true,
 		title: 'Initial Slide',
 		description:
-			'Describe what this form about here... Naviage the form throw Enter or Arrow keys to back and forth',
+			'Describe what this form about here... Navigate the form through Enter or Arrow keys to back and forth',
 		labelNext: 'Start'
 	},
 	finalSlide: {
