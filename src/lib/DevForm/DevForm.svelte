@@ -12,6 +12,11 @@
 	let currentIndex: number = $state(0);
 	let hasInitialSlide: boolean = $derived(!!config.initialSlide?.show);
 	let totalSlide: number = $derived(config.slides.length + ( hasInitialSlide ? 1 : 0 )) ;
+	let percent: number = $state(0); 
+	
+	$effect(()=> {
+		percent = (currentIndex + 1) / (totalSlide + 1) * 100
+	});
 
 	function handleKeyUp(e: KeyboardEvent) {
 		if (e.key === 'Escape') {
@@ -63,6 +68,12 @@
 	class="dev-form-container"
 	style="{styleVar}"
 >
+	<div
+		class="loader"
+		style="width:{percent}%"
+		data-start={currentIndex}
+		data-total-slide={totalSlide}
+	></div>
 	<div class="content">
 		{#if currentIndex === 0}
 			<BuildSlide
@@ -94,6 +105,10 @@
 </div>
 
 <style lang="postcss">
+	:global(.dev-form-container  * ) {
+		font-family: var(--dev-form-font-family);
+	}
+
 	.dev-form-container {
 		width: 100vw;
 		height: 100vh;
@@ -104,9 +119,18 @@
 		position: relative;
 	}
 
-	:global(.dev-form-container  * ) {
-		font-family: var(--dev-form-font-family);
+	.loader {
+		height: 4px;
+		background-color: rgb(var(--dev-form-brand-color-rgb));
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 2;
+		width: 0%;
+
+		transition: width 0.5s ease-in-out;
 	}
+
 
 	.content {
 		display: flex;
