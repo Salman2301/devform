@@ -14,12 +14,16 @@
 		}
 		if (e.key === 'Enter') {
 			// Shift + Enter
-			if (e.shiftKey) {
-				currentIndex = currentIndex - 1;
-			} else {
-				currentIndex = currentIndex + 1;
-			}
+			if (e.shiftKey) handlePrev();
+			else handleNext();
 		}
+	}
+
+	function handlePrev() {
+		currentIndex = currentIndex - 1;
+	}
+	function handleNext() {
+		currentIndex = currentIndex + 1;
 	}
 </script>
 
@@ -34,15 +38,30 @@
 <div class="dev-form-contianer" style="background-color: {config.app?.styles?.backgroundColor};">
 	<div class="content">
 		{#if currentIndex === 0}
-			<BuildSlide slideConfig={config.initialSlide!} {config} index={0} />
+			<BuildSlide
+				slideConfig={config.initialSlide!}
+				{config}
+				index={0}
+				onNext={handleNext}
+			/>
 		{/if}
 		{#each config.slides as slideConfig, index}
 			{#if currentIndex === index - 1}
-				<BuildSlide {slideConfig} {config} index={index + 1} />
+				<BuildSlide
+					{slideConfig}
+					{config}
+					index={index + 1}
+					onNext={handleNext}
+				/>
 			{/if}
 		{/each}
 		{#if currentIndex === config.slides.length + 1}
-			<BuildSlide slideConfig={config.finalSlide!} {config} index={config.slides.length + 1} />
+			<BuildSlide
+				slideConfig={config.finalSlide!}
+				{config}
+				index={config.slides.length + 1}
+				onNext={handleNext}
+			/>
 		{/if}
 	</div>
 </div>

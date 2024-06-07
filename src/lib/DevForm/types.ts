@@ -12,6 +12,20 @@ type SlideConfig = {
 	labelNext?: string;
 };
 
+type InitialSlideConfig = {
+	show?: boolean;
+	title?: string;
+	description?: string;
+	labelNext?: string;
+};
+
+type FinalSlideConfig = {
+	show?: boolean;
+	title: string;
+	description: string;
+	labelNext?: string;
+};
+
 type FieldConfig = {
 	name: string;
 	type: string;
@@ -21,18 +35,6 @@ type FieldConfig = {
 	options?: any;
 };
 
-type InitialSlideConfig = {
-	show?: boolean;
-	title?: string;
-	description?: string;
-	label?: string;
-};
-
-type FinalSlideConfig = {
-	show?: boolean;
-	title: string;
-	description: string;
-};
 
 type Layout = {
 	type: 'full' | 'half';
