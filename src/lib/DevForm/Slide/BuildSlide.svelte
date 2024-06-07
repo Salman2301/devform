@@ -1,6 +1,9 @@
 <script lang="ts">
 	import ArrowBarRight from "../icons/ArrowBarRight.svelte";
   import ArrowReturnLeft from "../icons/ArrowReturnLeft.svelte";
+	import ArrowRightShort from "../icons/ArrowRightShort.svelte";
+
+  import { fade } from "svelte/transition";
 
 	type Props = {
 		slideConfig: SlideConfig | InitialSlideConfig | FinalSlideConfig;
@@ -11,7 +14,7 @@
 	let { slideConfig, config, index, onNext }: Props = $props();
 </script>
 
-<div class="slide-container">
+<div class="slide-container" >
   <div class="slide-body">
     <div class="slide-number">
       <span class="index">{index + 1}</span>
@@ -30,6 +33,7 @@
           onclick={() => onNext?.({ slideConfig, config, index })}
         >
           {slideConfig?.labelNext || "Next"}
+          <span class="btn-submit-icon"><ArrowRightShort /></span>
         </button>
         <span class="label-next">Press <span>Enter</span>  <ArrowReturnLeft /> </span>
       </div>
@@ -45,6 +49,8 @@
 		/* background-color: rgba(255, 255, 255, 0.5); */
 		background-color: var(--dev-form-background-color);
 		position: absolute;
+
+    border: 1px solid red;
 
 		display: flex;
 		align-items: center;
@@ -112,6 +118,15 @@
 
     &:hover {
       background-color: rgb(var(--dev-form-brand-color-rgb));
+
+      .btn-submit-icon {
+        translate: 4px;
+      }
+    }
+
+    .btn-submit-icon {
+      scale: 1.4;
+      transition: all 0.2s ease-in-out;
     }
   }
   .label-next {
@@ -122,7 +137,7 @@
     font-size: 14px;
     span {
       font-weight: bold;
-      margin: 0px 4px;
+      margin: 0px 8px;
     }
   }
 
