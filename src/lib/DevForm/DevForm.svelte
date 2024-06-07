@@ -6,23 +6,27 @@
 		config: DevFormConfig;
 	};
 
-	let currentIndex = $state(0);
 	let { config = defaultConfig }: Props = $props();
+
+	let currentIndex: number = $state(0);
+	let hasInitialSlide: boolean = $derived(!!config.initialSlide?.show);
+	let totalSlide: number = $derived(config.slides.length + ( hasInitialSlide ? 1 : 0 )) ;
 
 	function handleKeyUp(e: KeyboardEvent) {
 		if (e.key === 'Escape') {
 		}
 		if (e.key === 'Enter') {
-			// Shift + Enter
 			if (e.shiftKey) handlePrev();
 			else handleNext();
 		}
 	}
 
 	function handlePrev() {
+		if( currentIndex === 0) return;
 		currentIndex = currentIndex - 1;
 	}
 	function handleNext() {
+		if (currentIndex === totalSlide) return;
 		currentIndex = currentIndex + 1;
 	}
 </script>
@@ -46,7 +50,7 @@
 			/>
 		{/if}
 		{#each config.slides as slideConfig, index}
-			{#if currentIndex === index - 1}
+			{#if currentIndex === index - (hasInitialSlide ? 1 : 0)}
 				<BuildSlide
 					{slideConfig}
 					{config}
@@ -55,11 +59,11 @@
 				/>
 			{/if}
 		{/each}
-		{#if currentIndex === config.slides.length + 1}
+		{#if currentIndex === totalSlide}
 			<BuildSlide
 				slideConfig={config.finalSlide!}
 				{config}
-				index={config.slides.length + 1}
+				index={totalSlide}
 				onNext={handleNext}
 			/>
 		{/if}

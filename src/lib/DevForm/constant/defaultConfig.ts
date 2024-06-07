@@ -26,10 +26,11 @@ export let defaultConfig: DevFormConfig = {
 		show: true,
 		title: 'Form Title',
 		description: 'Form description',
-		label: 'Start!'
+		labelNext: 'Start'
 	},
 	finalSlide: {
 		title: 'Thank you for your submission',
-		description: "That's all you can close this window now!"
+		description: "That's all you can close this window now!",
+		labelNext: 'Submit'
 	}
 };

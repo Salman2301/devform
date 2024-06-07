@@ -67,7 +67,7 @@
   }
 
   .slide-body {
-    width: 700px;
+    max-width: 700px;
     display: flex;
   }
 
