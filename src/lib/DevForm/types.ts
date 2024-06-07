@@ -5,37 +5,6 @@ type DevFormConfig = {
 	finalSlide?: FinalSlideConfig;
 };
 
-type SlideConfig = {
-	title: string;
-	description: string;
-	fields?: FieldConfig[];
-	labelNext?: string;
-};
-
-type InitialSlideConfig = {
-	show?: boolean;
-	title?: string;
-	description?: string;
-	labelNext?: string;
-};
-
-type FinalSlideConfig = {
-	show?: boolean;
-	title: string;
-	description: string;
-	labelNext?: string;
-};
-
-type FieldConfig = {
-	name: string;
-	type: string;
-	label: string;
-	placeholder: string;
-	required: boolean;
-	options?: any;
-};
-
-
 type Layout = {
 	type: 'full' | 'half';
 };
@@ -64,3 +33,75 @@ type AppConfig = {
 		type?: 'slide' | 'fade';
 	};
 };
+
+type SlideConfig = {
+	title: string;
+	description?: string;
+	field?: FieldConfig;
+	labelNext?: string;
+};
+
+type BaseSlideConfig = {
+	title?: string;
+	description?: string;
+	labelNext?: string;
+};
+
+type InitialSlideConfig = {
+	show?: boolean;
+} & BaseSlideConfig;
+
+type FinalSlideConfig = {
+	show?: boolean;
+} & BaseSlideConfig;
+
+type SlideFieldConfig = FieldConfig & BaseSlideConfig;
+
+type FieldConfig = FieldInput;
+
+type FieldInput =
+	| FieldFormatNumber
+	| FieldFormatEmail
+	| FieldFormatUrl
+	| FieldFormatTel
+	| FieldFormatText
+	| FieldFormatPassword
+	| FieldFormatCustom;
+
+type BaseFieldInput = {
+	type: 'input';
+	placeholder?: string;
+	errorMessage?: string;
+};
+
+type FieldFormatNumber = {
+	formatType: 'number';
+	min?: number;
+	max?: number;
+	step?: number;
+} & BaseFieldInput;
+
+type FieldFormatEmail = {
+	formatType: 'email';
+} & BaseFieldInput;
+
+type FieldFormatUrl = {
+	formatType: 'url';
+} & BaseFieldInput;
+
+type FieldFormatTel = {
+	formatType: 'tel';
+} & BaseFieldInput;
+
+type FieldFormatText = {
+	formatType: 'text';
+} & BaseFieldInput;
+
+type FieldFormatPassword = {
+	formatType: 'password';
+} & BaseFieldInput;
+
+type FieldFormatCustom = {
+	formatType: 'custom';
+	regex?: string;
+} & BaseFieldInput;

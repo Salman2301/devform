@@ -21,11 +21,21 @@ export let defaultConfig: DevFormConfig = {
 			borderRadius: '10rem'
 		}
 	},
-	slides: [],
+	slides: [
+		{
+			title: 'Form Input',
+			description: '',
+			field: {
+				type: 'input',
+				formatType: 'number'
+			}
+		}
+	],
 	initialSlide: {
 		show: true,
-		title: 'Form Title',
-		description: 'Form description',
+		title: 'Initial Slide',
+		description:
+			'Describe what this form about here... Naviage the form throw Enter or Arrow keys to back and forth',
 		labelNext: 'Start'
 	},
 	finalSlide: {

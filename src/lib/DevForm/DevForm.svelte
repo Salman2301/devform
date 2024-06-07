@@ -7,15 +7,15 @@
 	};
 
 	let { config = defaultConfig }: Props = $props();
-	let styleVar: string = $derived(genConfigStyleVar())
+	let styleVar: string = $derived(genConfigStyleVar());
 
 	let currentIndex: number = $state(0);
 	let hasInitialSlide: boolean = $derived(!!config.initialSlide?.show);
-	let totalSlide: number = $derived(config.slides.length + ( hasInitialSlide ? 1 : 0 )) ;
-	let percent: number = $state(0); 
-	
-	$effect(()=> {
-		percent = (currentIndex + 1) / (totalSlide + 1) * 100
+	let totalSlide: number = $derived(config.slides.length + (hasInitialSlide ? 1 : 0));
+	let percent: number = $state(0);
+
+	$effect(() => {
+		percent = ((currentIndex + 1) / (totalSlide + 1)) * 100;
 	});
 
 	function handleKeyUp(e: KeyboardEvent) {
@@ -28,19 +28,18 @@
 	}
 
 	function handlePrev() {
-		if( currentIndex === 0) return;
+		if (currentIndex === 0) return;
 		currentIndex = currentIndex - 1;
 		goto();
 	}
-	
+
 	function handleNext() {
 		if (currentIndex === totalSlide) return;
 		currentIndex = currentIndex + 1;
 		goto();
 	}
 
-	function goto(index=currentIndex) {
-		console.log("goto", index)
+	function goto(index = currentIndex) {
 		setTimeout(() => {
 			let container = document.querySelector('.content');
 			if (!container) return;
@@ -50,23 +49,36 @@
 		}, 40); // without setTimeout smooth scrolling is not working when using button click ( Next )
 	}
 
-
 	function genConfigStyleVar(): string {
 		let styleVar: Record<string, string> = {};
 		if (config.app?.styles?.backgroundColor)
-			styleVar["--dev-form-background-color"] = config.app?.styles?.backgroundColor;
+			styleVar['--dev-form-background-color'] = config.app?.styles?.backgroundColor;
 		if (config.app?.styles?.fontColorRGB)
-			styleVar["--dev-form-font-color-rgb"] = config.app?.styles?.fontColorRGB;
+			styleVar['--dev-form-font-color-rgb'] = config.app?.styles?.fontColorRGB;
 		if (config.app?.styles?.fontFamily)
-			styleVar["--dev-form-font-family"] = config.app?.styles?.fontFamily;
+			styleVar['--dev-form-font-family'] = config.app?.styles?.fontFamily;
 		if (config.app?.styles?.borderRadius)
-			styleVar["--dev-form-border-radius"] = config.app?.styles?.borderRadius;
+			styleVar['--dev-form-border-radius'] = config.app?.styles?.borderRadius;
 		if (config.app?.styles?.brandColorRGB)
-			styleVar["--dev-form-brand-color-rgb"] = config.app?.styles?.brandColorRGB;
+			styleVar['--dev-form-brand-color-rgb'] = config.app?.styles?.brandColorRGB;
 		if (config.app?.styles?.fontSize)
-			styleVar["--dev-form-font-size"] = config.app?.styles?.fontSize;
+			styleVar['--dev-form-font-size'] = config.app?.styles?.fontSize;
 
-		return Object.entries(styleVar).map(([key, value]) => `${key}: ${value};`).join('');
+		return Object.entries(styleVar)
+			.map(([key, value]) => `${key}: ${value};`)
+			.join('');
+	}
+
+	function handleKeyDown(e: KeyboardEvent) {
+		if (e.key.startsWith('Arrow')) {
+			e.preventDefault();
+			handleArrowKey(e.key);
+		}
+	}
+
+	function handleArrowKey(key: string) {
+		if (key === 'ArrowLeft' || key === 'ArrowUp') handlePrev();
+		if (key === 'ArrowRight' || key === 'ArrowDown') handleNext();
 	}
 </script>
 
@@ -76,12 +88,9 @@
 	{/if}
 </svelte:head>
 
-<svelte:window on:keyup={handleKeyUp} />
+<svelte:window on:keyup={handleKeyUp} on:keydown={handleKeyDown} />
 
-<div
-	class="dev-form-container"
-	style="{styleVar}"
->
+<div class="dev-form-container" style={styleVar}>
 	<div
 		class="loader"
 		style="width:{percent}%"
@@ -100,29 +109,29 @@
 		{/if}
 		{#each config.slides as slideConfig, index}
 			<!-- {#if currentIndex === index - (hasInitialSlide ? 1 : 0)} -->
-				<BuildSlide
-					{slideConfig}
-					{config}
-					index={index + 1}
-					onNext={handleNext}
-					isFocus={currentIndex === index - (hasInitialSlide ? 1 : 0)}
-				/>
+			<BuildSlide
+				{slideConfig}
+				{config}
+				index={index + 1}
+				onNext={handleNext}
+				isFocus={currentIndex === index - (hasInitialSlide ? 1 : 0)}
+			/>
 			<!-- {/if} -->
 		{/each}
 		<!-- {#if currentIndex === totalSlide} -->
-			<BuildSlide
-				slideConfig={config.finalSlide!}
-				{config}
-				index={totalSlide}
-				onNext={handleNext}
-				isFocus={currentIndex === totalSlide}
-			/>
+		<BuildSlide
+			slideConfig={config.finalSlide!}
+			{config}
+			index={totalSlide}
+			onNext={handleNext}
+			isFocus={currentIndex === totalSlide}
+		/>
 		<!-- {/if} -->
 	</div>
 </div>
 
 <style lang="postcss">
-	:global(.dev-form-container  * ) {
+	:global(.dev-form-container *) {
 		font-family: var(--dev-form-font-family);
 	}
 
@@ -148,9 +157,7 @@
 		transition: width 0.5s ease-in-out;
 	}
 
-
 	.content {
-
 		width: 100%;
 		height: 100%;
 
