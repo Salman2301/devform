@@ -30,8 +30,8 @@
           onclick={() => onNext?.({ slideConfig, config, index })}
         >
           {slideConfig?.labelNext || "Next"}
-          <ArrowReturnLeft />
         </button>
+        <span class="label-next">Press <span>Enter</span>  <ArrowReturnLeft /> </span>
       </div>
     </div>
 
@@ -42,12 +42,14 @@
 	.slide-container {
 		width: 100%;
 		height: 100%;
-		background-color: rgba(255, 255, 255, 0.5);
+		/* background-color: rgba(255, 255, 255, 0.5); */
+		background-color: var(--dev-form-background-color);
 		position: absolute;
 
 		display: flex;
 		align-items: center;
 		justify-content: center;
+
 	}
   .slide-number {
     padding-top: 6px;
@@ -55,10 +57,13 @@
 
     display: flex;
     gap: 4px;
+    color: rgb(var(--dev-form-font-color-rgb));
   }
 
 	h1 {
-		font-size: 36px;
+    margin-bottom: 12px;
+    font-size: var(--dev-form-font-size);
+    color: rgb(var(--dev-form-font-color-rgb));
 	}
 
   .description {
@@ -81,18 +86,22 @@
 
   .action {
     padding-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
+
   .btn-submit {  
-    height: 40px;
-    width: 120px;
-    border-radius: 40px;
+    height: 46px;
+    min-width: 140px;
+    border-radius: var(--dev-form-border-radius);
     border: 1px solid;
-    border-color: #007bff;
-    background-color: rgb(0, 123, 255, 0.5);
+    border-color: rgb(var(--dev-form-brand-color-rgb));
+    background-color: rgba(var(--dev-form-brand-color-rgb), 0.7);
     color: white;
 
-    font-size: 18px;
+    font-size: 22px;
 
     display: flex;
     justify-content: center;
@@ -102,7 +111,18 @@
     cursor: pointer;
 
     &:hover {
-      background-color: rgb(0, 123, 255);
+      background-color: rgb(var(--dev-form-brand-color-rgb));
+    }
+  }
+  .label-next {
+    display: flex;
+    align-items: center;
+    color: rgb(var(--dev-form-font-color-rgb));
+
+    font-size: 14px;
+    span {
+      font-weight: bold;
+      margin: 0px 4px;
     }
   }
 

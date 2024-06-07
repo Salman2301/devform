@@ -53,8 +53,8 @@ type AppConfig = {
 	styles?: {
 		backgroundColor?: string;
 		logo?: string;
-		brandColor?: string;
-		fontColor?: string;
+		brandColorRGB?: string;
+		fontColorRGB?: string;
 		fontFamily?: string;
 		fontSize?: string;
 		borderRadius?: string;

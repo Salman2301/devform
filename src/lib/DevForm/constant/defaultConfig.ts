@@ -13,12 +13,12 @@ export let defaultConfig: DevFormConfig = {
 			}
 		],
 		styles: {
-			backgroundColor: '#fff',
-			brandColor: '#007bff',
-			fontColor: '#000',
-			fontFamily: "'Fira Sans', sans-serif",
-			fontSize: '16px',
-			borderRadius: '5px'
+			backgroundColor: 'white',
+			brandColorRGB: '255, 123, 255',
+			fontColorRGB: '0, 0, 0',
+			fontFamily: "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+			fontSize: '36px',
+			borderRadius: '10rem'
 		}
 	},
 	slides: [],

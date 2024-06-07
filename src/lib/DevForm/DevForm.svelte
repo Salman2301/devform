@@ -7,6 +7,7 @@
 	};
 
 	let { config = defaultConfig }: Props = $props();
+	let styleVar: string = $derived(genConfigStyleVar())
 
 	let currentIndex: number = $state(0);
 	let hasInitialSlide: boolean = $derived(!!config.initialSlide?.show);
@@ -29,6 +30,25 @@
 		if (currentIndex === totalSlide) return;
 		currentIndex = currentIndex + 1;
 	}
+
+
+	function genConfigStyleVar(): string {
+		let styleVar: Record<string, string> = {};
+		if (config.app?.styles?.backgroundColor)
+			styleVar["--dev-form-background-color"] = config.app?.styles?.backgroundColor;
+		if (config.app?.styles?.fontColorRGB)
+			styleVar["--dev-form-font-color-rgb"] = config.app?.styles?.fontColorRGB;
+		if (config.app?.styles?.fontFamily)
+			styleVar["--dev-form-font-family"] = config.app?.styles?.fontFamily;
+		if (config.app?.styles?.borderRadius)
+			styleVar["--dev-form-border-radius"] = config.app?.styles?.borderRadius;
+		if (config.app?.styles?.brandColorRGB)
+			styleVar["--dev-form-brand-color-rgb"] = config.app?.styles?.brandColorRGB;
+		if (config.app?.styles?.fontSize)
+			styleVar["--dev-form-font-size"] = config.app?.styles?.fontSize;
+
+		return Object.entries(styleVar).map(([key, value]) => `${key}: ${value};`).join('');
+	}
 </script>
 
 <svelte:head>
@@ -39,7 +59,10 @@
 
 <svelte:window on:keyup={handleKeyUp} />
 
-<div class="dev-form-contianer" style="background-color: {config.app?.styles?.backgroundColor};">
+<div
+	class="dev-form-container"
+	style="{styleVar}"
+>
 	<div class="content">
 		{#if currentIndex === 0}
 			<BuildSlide
@@ -71,7 +94,7 @@
 </div>
 
 <style lang="postcss">
-	.dev-form-contianer {
+	.dev-form-container {
 		width: 100vw;
 		height: 100vh;
 		display: flex;
@@ -79,6 +102,10 @@
 		align-items: center;
 		justify-content: center;
 		position: relative;
+	}
+
+	:global(.dev-form-container  * ) {
+		font-family: var(--dev-form-font-family);
 	}
 
 	.content {
