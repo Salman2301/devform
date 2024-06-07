@@ -1,0 +1,20 @@
+
+Fields:
+  ☐ Select
+  ☐ Multiple Select
+  ☐ Short Text
+    ☐ Link
+    ☐ Email
+    ☐ Social Media
+    ☐ Phone
+    ☐ Address
+  ☐ Long Text
+  ☐ Number
+  ☐ Date
+  ☐ Time
+  ☐ Checkbox
+  ☐ Link
+  ☐ Signature
+  ☐ FileUpload
+  ☐ ImageUpload
+  ☐ VideoUpload

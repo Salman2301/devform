@@ -40,11 +40,14 @@
 	}
 
 	function goto(index=currentIndex) {
-		let container = document.querySelector('.content');
-		if(!container) return;
-		let secondDiv = container.children[index]; // Select the second div
-		secondDiv.scrollIntoView(); // Scroll to the second div
-		index++;
+		console.log("goto", index)
+		setTimeout(() => {
+			let container = document.querySelector('.content');
+			if (!container) return;
+			let secondDiv = container.children[index];
+			secondDiv.scrollIntoView();
+			index++;
+		}, 40); // without setTimeout smooth scrolling is not working when using button click ( Next )
 	}
 
 

@@ -52,6 +52,7 @@
 		justify-content: center;
 
     scroll-snap-align: start;
+    padding: 0px 20px;
 	}
   .slide-number {
     padding-top: 6px;
@@ -74,6 +75,7 @@
   }
 
   .slide-body {
+    width: 100%;
     max-width: 700px;
     display: flex;
   }
@@ -83,7 +85,8 @@
     flex-direction: column;
     justify-content: start;
     align-items: start;
-    width: 700px;
+    max-width: 700px;
+    max-width: 100%;
   }
 
   .action {
