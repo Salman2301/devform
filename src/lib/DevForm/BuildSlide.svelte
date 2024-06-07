@@ -55,7 +55,7 @@
 			{#if slideConfig?.description}
 				<p class="description">{slideConfig?.description}</p>
 			{/if}
-			{#if (slideConfig as SlideFieldConfig).type === "input"}
+			{#if !!(slideConfig as SlideFieldConfig).type}
 				<Field
 					isFocus={!!isFocus}
 					config={slideConfig as SlideFieldConfig}
@@ -67,7 +67,7 @@
 				<p class="error-message">{errorMessage || "Please check the input and try again"}</p>
 			{/if}
 			<div class="action">
-				<button class="btn-submit" onclick={() => onNext?.({ slideConfig, config, index })}>
+				<button class="btn-submit"  onclick={() => onNext?.({ slideConfig, config, index })}>
 					{slideConfig?.labelNext || 'Next'}
 					<span class="btn-submit-icon"><ArrowRightShort /></span>
 				</button>
@@ -122,8 +122,10 @@
 		justify-content: start;
 		align-items: start;
 		max-width: 700px;
-		max-width: 100%;
+		width: 100%;
+		color: var(--dev-form-font-color);
 	}
+
 
 	.action {
 		padding-top: 40px;

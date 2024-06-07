@@ -50,9 +50,20 @@ type FinalSlideConfig = {
 	show?: boolean;
 } & BaseSlideConfig;
 
-type SlideFieldConfig = SlideFieldInputConfig;
+type SlideFieldConfig = SlideFieldInputConfig | SlideFieldSelectConfig;
 
 type SlideFieldInputConfig = FieldInput & BaseSlideConfig;
+
+type SlideFieldSelectConfig = {
+	options: string[];
+	defaultSelected?: number[];
+
+	type: 'select';
+	required?: boolean;
+	defaultValue?: string
+	placeholder?: string;
+	errorMessage?: string;
+} & BaseSlideConfig;
 
 type FieldInput =
 	| FieldFormatNumber
@@ -64,7 +75,7 @@ type FieldInput =
 	| FieldFormatCustom;
 
 type BaseFieldInput = {
-	type: 'input';
+	type: 'short-text';
 	defaultValue?: string
 	placeholder?: string;
 	errorMessage?: string;

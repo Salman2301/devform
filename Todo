@@ -1,13 +1,13 @@
 
 Fields:
   ☐ Select
-  ☐ Multiple Select
-  ☐ Short Text
-    ☐ Link
-    ☐ Email
-    ☐ Social Media
-    ☐ Phone
-    ☐ Address
+  ✔ Multiple Select @done(24-06-08 03:09)
+  ✔ Short Text @done(24-06-08 03:09)
+    ✔ Link @done(24-06-08 03:09)
+    ✔ Email @done(24-06-08 03:09)
+    ✘ Social Media @cancelled(24-06-08 03:09)
+    ✔ Phone @done(24-06-08 03:09)
+    ✘ Address @cancelled(24-06-08 03:09)
   ☐ Long Text
   ☐ Number
   ☐ Date
@@ -25,3 +25,5 @@ Later Fix:
   ☐ On Enter run validation check
 Feature:
   ☐ Autofill based on the URl Query
+  ☐ Before submit run all the validations
+    ☐ On validation error show error message and redirect to the slide

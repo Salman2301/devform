@@ -70,13 +70,18 @@
 	}
 
 	function handleKeyDown(e: KeyboardEvent) {
+		if( e.target && (e.target as HTMLButtonElement).tagName === 'BUTTON' && e.key === 'Escape' )
+			return (e.target as HTMLButtonElement)?.blur?.();
+
 		if (e.key.startsWith('Arrow')) {
 			e.preventDefault();
 			const key = e.key;
 			if (key === "ArrowLeft" || key === "ArrowUp") handlePrev();
 			if (key === "ArrowRight" || key === "ArrowDown") handleNext();
 		}
-		else if (e.key === 'Enter') {
+		
+		if (e.key === 'Enter' || e.key === ' ') {
+			if(e.key === ' ') e.preventDefault();
 			if (e.shiftKey) handlePrev();
 			else handleNext(true);
 		}

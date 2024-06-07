@@ -4,11 +4,9 @@
     config: SlideFieldInputConfig;
     value: string;
     ref: HTMLInputElement | null;
-    onSetFocus?: () => void;
   }
 
   let { value=$bindable(), config, ref=$bindable<HTMLInputElement>() }: Props = $props();
-  
 </script>
 
 <input 
