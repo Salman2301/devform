@@ -46,7 +46,7 @@
 			if (!content) return;
 			let slideContianer = content.children[currentIndex];
 			slideContianer.scrollIntoView();
-		}, 40); // without setTimeout smooth scrolling is not working when using button click ( Next )
+		}, 120); // without setTimeout smooth scrolling is not working when using button click ( Next )
 	}
 
 	function genConfigStyleVar(): string {
@@ -110,7 +110,7 @@
 				slideConfig={config.initialSlide!}
 				{config}
 				index={0}
-				onNext={()=>handleNext()}
+				next={()=>handleNext()}
 				isFocus={currentIndex === 0}
 			/>
 		{/if}
@@ -119,7 +119,7 @@
 				{slideConfig}
 				{config}
 				index={index + 1}
-				onNext={()=>handleNext()}
+				next={()=>handleNext()}
 				bind:this={buildSlideFieldRefs[index]}
 				isFocus={currentIndex === (index + (hasInitialSlide ? 1 : 0))}
 			/>
@@ -128,7 +128,7 @@
 			slideConfig={config.finalSlide!}
 			{config}
 			index={totalSlide}
-			onNext={()=>handleNext()}
+			next={()=>handleNext()}
 			isFocus={currentIndex === totalSlide}
 		/>
 	</div>

@@ -28,6 +28,7 @@ export let defaultConfig: DevFormConfig = {
 			title: 'Form Input',
 			description: '',
 			required: true,
+			multiple: false,
 			placeholder: "Enter your email",
 		}
 		// {

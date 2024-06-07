@@ -5,9 +5,10 @@
 	type Props = {
 		config: SlideFieldConfig;
 		isFocus: boolean;
+		next: ()=>void;
 	};
 
-	let { config, isFocus }: Props = $props();
+	let { config, isFocus, next }: Props = $props();
 	let ref: HTMLInputElement | null = $state(null);
 
 	let value = $state('');
@@ -75,7 +76,12 @@
 
 
   function toggleSelect(index: number) {
-    if (selected.includes(index)) {
+		if( config.type !== 'select' ) return;
+    if( !config.multiple ) {
+      selected = [index];
+      next?.();
+    }
+    else if (selected.includes(index)) {
       selected = selected.filter((i) => i !== index);
     } else {
       selected = [...selected, index];
@@ -89,5 +95,5 @@
 {#if config.type === 'short-text'}
 	<Input {config} bind:value bind:ref />
 {:else if config.type === 'select'}
-	<Select {config} bind:value bind:selected={selected} />
+	<Select {config} bind:value bind:selected={selected} next={next} />
 {/if}

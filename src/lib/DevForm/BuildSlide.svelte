@@ -9,11 +9,7 @@
 		config: DevFormConfig;
 		isFocus?: boolean;
 		index: number;
-		onNext?: (props: {
-			slideConfig: SlideFieldConfig | InitialSlideConfig | FinalSlideConfig;
-			config: DevFormConfig;
-			index: number;
-		}) => void;
+		next?: EventNext;
 		beforeNext?: (props: {
 			slideConfig: SlideFieldConfig | InitialSlideConfig | FinalSlideConfig;
 			config: DevFormConfig;
@@ -21,7 +17,7 @@
 		}) => boolean;
 	};
 
-	let { slideConfig, config, index, onNext, isFocus }: Props = $props();
+	let { slideConfig, config, index, next, isFocus }: Props = $props();
 
 	let showError = $state(false);
 	let errorMessage = $state((slideConfig as SlideFieldConfig).errorMessage);
@@ -60,6 +56,7 @@
 					isFocus={!!isFocus}
 					config={slideConfig as SlideFieldConfig}
 					bind:this={fieldRef}
+					next={()=>next?.({ slideConfig, config, index })}
 				/>
       {/if}
 
@@ -67,7 +64,7 @@
 				<p class="error-message">{errorMessage || "Please check the input and try again"}</p>
 			{/if}
 			<div class="action">
-				<button class="btn-submit"  onclick={() => onNext?.({ slideConfig, config, index })}>
+				<button class="btn-submit"  onclick={() => next?.({ slideConfig, config, index })}>
 					{slideConfig?.labelNext || 'Next'}
 					<span class="btn-submit-icon"><ArrowRightShort /></span>
 				</button>

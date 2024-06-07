@@ -4,9 +4,10 @@
     config: SlideFieldSelectConfig;
     value: string;
     selected: number[];
+    next?: ()=>void;
   }
 
-  let { config, value=$bindable(''), selected=$bindable([]) }: Props = $props();
+  let { config, value=$bindable(''), selected=$bindable([]), next }: Props = $props();
 
   config.options
 
@@ -15,7 +16,11 @@
   });
 
   function toggleSelect(index: number) {
-    if (selected.includes(index)) {
+    if( !config.multiple ) {
+      selected = [index];
+      next?.();
+    }
+    else if (selected.includes(index)) {
       selected = selected.filter((i) => i !== index);
     } else {
       selected = [...selected, index];

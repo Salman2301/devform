@@ -59,6 +59,8 @@ type SlideFieldSelectConfig = {
 	defaultSelected?: number[];
 
 	type: 'select';
+
+	multiple?: boolean;
 	required?: boolean;
 	defaultValue?: string
 	placeholder?: string;
@@ -112,3 +114,10 @@ type FieldFormatCustom = {
 	formatType: 'custom';
 	customFormat: ( value: string, config: SlideFieldConfig) => boolean;
 } & BaseFieldInput;
+
+
+type EventNext = (props: {
+	slideConfig: SlideFieldConfig | InitialSlideConfig | FinalSlideConfig;
+	config: DevFormConfig;
+	index: number;
+}) => void;
