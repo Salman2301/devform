@@ -1,12 +1,30 @@
 <script lang="ts">
+	import { blurOnEscape } from "../action/blurOnEscape";
+
 
   type Props = {
-    config: SlideFieldInputConfig;
+    config: SlideFieldShortTextConfig;
     value: string;
-    ref: HTMLInputElement | null;
+    isFocus: boolean;
+    next: ()=>void;
+    prev: ()=>void;
   }
 
-  let { value=$bindable(), config, ref=$bindable<HTMLInputElement>() }: Props = $props();
+  let { value=$bindable(), config, next, prev, isFocus }: Props = $props();
+
+  let ref: HTMLInputElement | null = $state(null);
+  
+  $effect(() => {
+    if (isFocus && ref) ref?.focus?.();
+  });
+
+  function handleKeyDown(e: KeyboardEvent) {
+		if( e.key === "Enter") {
+      if(e.shiftKey) prev?.();
+      else next?.();
+    }
+  }
+
 </script>
 
 <input 
@@ -14,6 +32,8 @@
   placeholder="{config.placeholder}"
   type="{config.formatType}"
   bind:this={ref}
+  onkeydown={handleKeyDown}
+  use:blurOnEscape
 />
 
 <style lang="postcss">

@@ -29,15 +29,18 @@
 
 	async function handleNext(checkValidation?: boolean) {
 		if (currentIndex === totalSlide) return;
-		if (checkValidation) {
-			const buildSlideFieldRef = buildSlideFieldRefs[currentFieldIndex];
-			if(buildSlideFieldRef?.beforeNext) {
-				const isValid = await buildSlideFieldRef?.beforeNext?.();
-				if(!isValid) return;
+		setTimeout(async ()=>{
+			if (checkValidation) {
+				const buildSlideFieldRef = buildSlideFieldRefs[currentFieldIndex];
+				if(buildSlideFieldRef?.beforeNext) {
+					const isValid = await buildSlideFieldRef?.beforeNext?.();
+					if(!isValid) return;
+				}
 			}
-		}
-		currentIndex = currentIndex + 1;
-		goto();
+			currentIndex = currentIndex + 1;
+
+			goto();
+		}, 300)
 	}
 
 	function goto() {
@@ -73,14 +76,16 @@
 		if( e.target && (e.target as HTMLButtonElement).tagName === 'BUTTON' && e.key === 'Escape' )
 			return (e.target as HTMLButtonElement)?.blur?.();
 
+		if( e.target && (e.target as any).tagName !== "BODY" ) return;
+
 		if (e.key.startsWith('Arrow')) {
 			e.preventDefault();
 			const key = e.key;
 			if (key === "ArrowLeft" || key === "ArrowUp") handlePrev();
 			if (key === "ArrowRight" || key === "ArrowDown") handleNext();
 		}
-		
 		if (e.key === 'Enter' || e.key === ' ') {
+			// if( e.target )
 			if(e.key === ' ') e.preventDefault();
 			if (e.shiftKey) handlePrev();
 			else handleNext(true);
@@ -119,7 +124,8 @@
 				{slideConfig}
 				{config}
 				index={index + 1}
-				next={()=>handleNext()}
+				next={()=>handleNext(true)}
+				prev={()=>handlePrev()}
 				bind:this={buildSlideFieldRefs[index]}
 				isFocus={currentIndex === (index + (hasInitialSlide ? 1 : 0))}
 			/>

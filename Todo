@@ -8,7 +8,7 @@ Fields:
     ✘ Social Media @cancelled(24-06-08 03:09)
     ✔ Phone @done(24-06-08 03:09)
     ✘ Address @cancelled(24-06-08 03:09)
-  ☐ Long Text
+  ✔ Long Text @done(24-06-08 04:12)
   ☐ Number
   ☐ Date
   ☐ Time
@@ -20,10 +20,10 @@ Fields:
   ☐ VideoUpload
 
 Later Fix:
-  ☐ Arrow in submit slide should not submit
-    ☐ Only enter or mouse click is allowed.
-  ☐ On Enter run validation check
+  ✔ Arrow in submit slide should not submit @done(24-06-08 04:13)
+    ✔ Only enter or mouse click is allowed. @done(24-06-08 04:13)
+  ✔ On Enter run validation check @done(24-06-08 04:13)
 Feature:
   ☐ Autofill based on the URl Query
-  ☐ Before submit run all the validations
-    ☐ On validation error show error message and redirect to the slide
+  ✔ Before submit run all the validations @done(24-06-08 04:14)
+    ✔ On validation error show error message and redirect to the slide @done(24-06-08 04:14)

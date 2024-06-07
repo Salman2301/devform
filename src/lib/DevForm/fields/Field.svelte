@@ -1,21 +1,18 @@
 <script lang="ts">
-	import Input from './Input.svelte';
+	import ShortText from './ShortText.svelte';
 	import Select from './Select.svelte';
+	import TextArea from './TextArea.svelte';
 
 	type Props = {
 		config: SlideFieldConfig;
 		isFocus: boolean;
 		next: ()=>void;
+		prev: ()=>void;
 	};
 
-	let { config, isFocus, next }: Props = $props();
-	let ref: HTMLInputElement | null = $state(null);
+	let { config, isFocus, next, prev }: Props = $props();
 
 	let value = $state('');
-
-	$effect(() => {
-		if (isFocus && ref) ref.focus();
-	});
 
 	export function isValid() {
 		if (!config.required && !value) return true;
@@ -23,12 +20,20 @@
 
 		if (config.type === 'short-text') return shortTextIsValid();
 		if (config.type === 'select') return selectIsValid();
+		if (config.type === 'long-text') return longTextIsValid();
 
 		return false;
 	}
 
+	function longTextIsValid() {
+		if( config.required && !value ) return false;
+		return true;
+	}
+
 	function shortTextIsValid() {
     if( config.type !== "short-text" ) return false;
+		if( config.required && !value ) return false;
+
 		if (config.formatType === 'email') {
 			return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value);
 		}
@@ -91,9 +96,11 @@
 
 </script>
 
-<svelte:window onkeydown={handleKeyDown} />
+<svelte:window onkeyup={handleKeyDown} />
 {#if config.type === 'short-text'}
-	<Input {config} bind:value bind:ref />
+	<ShortText {config} bind:value {next} {prev} {isFocus} />
 {:else if config.type === 'select'}
-	<Select {config} bind:value bind:selected={selected} next={next} />
+	<Select {config} bind:value bind:selected={selected} {next}/>
+{:else if config.type === 'long-text'}
+	<TextArea {config} bind:value {isFocus} />
 {/if}

@@ -23,22 +23,36 @@ export let defaultConfig: DevFormConfig = {
 	},
 	slides: [
 		{
+			type: "long-text",
+			title: 'Long text',
+			required: true,
+			placeholder: "Enter your feedback",
+			description: 'Press Escape to focus on the slide, and use Enter to navigate to the next slide',
+		},
+		{
 			type: "select",
-			options: ["Option 1", "Option 2", "Option 3"],
+			options: ["Some option", "Other option", "Some other option", "This is a long text options and it will be scrollable"],
+			title: 'Multiple options',
+			description: 'Use keypad to select multiple options and Enter to continue',
+			required: true,
+			multiple: true
+		},
+		{
+			type: "select",
+			options: ["Some option", "Other option", "Some other option"],
+			title: 'Single options',
+			description: 'Use keypad to select and continue',
+			required: true
+		},
+		{
+			type: "short-text",
+
+			required: true,
 			title: 'Form Input',
 			description: '',
-			required: true,
-			multiple: false,
+			formatType: "email",
 			placeholder: "Enter your email",
 		}
-		// {
-		// 	type: "short-text",
-
-		// 	title: 'Form Input',
-		// 	description: '',
-		// 	formatType: "email",
-		// 	placeholder: "Enter your email",
-		// }
 	],
 	initialSlide: {
 		show: true,

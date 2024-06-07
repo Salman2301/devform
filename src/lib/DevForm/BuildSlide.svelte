@@ -10,6 +10,7 @@
 		isFocus?: boolean;
 		index: number;
 		next?: EventNext;
+		prev?: EventPrev;
 		beforeNext?: (props: {
 			slideConfig: SlideFieldConfig | InitialSlideConfig | FinalSlideConfig;
 			config: DevFormConfig;
@@ -17,7 +18,7 @@
 		}) => boolean;
 	};
 
-	let { slideConfig, config, index, next, isFocus }: Props = $props();
+	let { slideConfig, config, index, next, prev, isFocus }: Props = $props();
 
 	let showError = $state(false);
 	let errorMessage = $state((slideConfig as SlideFieldConfig).errorMessage);
@@ -57,6 +58,7 @@
 					config={slideConfig as SlideFieldConfig}
 					bind:this={fieldRef}
 					next={()=>next?.({ slideConfig, config, index })}
+					prev={()=>prev?.({ slideConfig, config, index })}
 				/>
       {/if}
 
@@ -105,6 +107,7 @@
 	.description {
 		color: #a3a3a3;
 		font-weight: semibold;
+		margin-bottom: 12px;
 	}
 
 	.slide-body {

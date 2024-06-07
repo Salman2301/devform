@@ -50,9 +50,9 @@ type FinalSlideConfig = {
 	show?: boolean;
 } & BaseSlideConfig;
 
-type SlideFieldConfig = SlideFieldInputConfig | SlideFieldSelectConfig;
+type SlideFieldConfig = SlideFieldShortTextConfig | SlideFieldSelectConfig | SlideFieldLongTextConfig;
 
-type SlideFieldInputConfig = FieldInput & BaseSlideConfig;
+type SlideFieldShortTextConfig = FieldShortText & BaseSlideConfig;
 
 type SlideFieldSelectConfig = {
 	options: string[];
@@ -62,12 +62,18 @@ type SlideFieldSelectConfig = {
 
 	multiple?: boolean;
 	required?: boolean;
-	defaultValue?: string
+	defaultValue?: string;
+	errorMessage?: string;
+} & BaseSlideConfig;
+
+type SlideFieldLongTextConfig = {
+	type: 'long-text';
+	maxLength?: number;
 	placeholder?: string;
 	errorMessage?: string;
 } & BaseSlideConfig;
 
-type FieldInput =
+type FieldShortText =
 	| FieldFormatNumber
 	| FieldFormatEmail
 	| FieldFormatUrl
@@ -76,7 +82,7 @@ type FieldInput =
 	| FieldFormatPassword
 	| FieldFormatCustom;
 
-type BaseFieldInput = {
+type BaseFieldShortText = {
 	type: 'short-text';
 	defaultValue?: string
 	placeholder?: string;
@@ -88,35 +94,41 @@ type FieldFormatNumber = {
 	min?: number;
 	max?: number;
 	step?: number;
-} & BaseFieldInput;
+} & BaseFieldShortText;
 
 type FieldFormatEmail = {
 	formatType: 'email';
-} & BaseFieldInput;
+} & BaseFieldShortText;
 
 type FieldFormatUrl = {
 	formatType: 'url';
-} & BaseFieldInput;
+} & BaseFieldShortText;
 
 type FieldFormatTel = {
 	formatType: 'tel';
-} & BaseFieldInput;
+} & BaseFieldShortText;
 
 type FieldFormatText = {
 	formatType: 'text';
-} & BaseFieldInput;
+} & BaseFieldShortText;
 
 type FieldFormatPassword = {
 	formatType: 'password';
-} & BaseFieldInput;
+} & BaseFieldShortText;
 
 type FieldFormatCustom = {
 	formatType: 'custom';
 	customFormat: ( value: string, config: SlideFieldConfig) => boolean;
-} & BaseFieldInput;
+} & BaseFieldShortText;
 
 
 type EventNext = (props: {
+	slideConfig: SlideFieldConfig | InitialSlideConfig | FinalSlideConfig;
+	config: DevFormConfig;
+	index: number;
+}) => void;
+
+type EventPrev = (props: {
 	slideConfig: SlideFieldConfig | InitialSlideConfig | FinalSlideConfig;
 	config: DevFormConfig;
 	index: number;

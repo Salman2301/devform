@@ -55,7 +55,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 180px;
+    min-width: 180px;
     height: 46px;
 
     &:hover {
@@ -73,7 +73,8 @@
     height: 100%;
     display: flex;
     flex-wrap: wrap;
-    gap: 32px;
+    column-gap: 32px;
+    row-gap: 16px;
   }
   .kbd {
     width: 20px;
@@ -85,5 +86,6 @@
     border: 1px solid rgba(255, 255, 255, 0.6);
     background-color: rgba(255, 255, 255, 0.3);
     font-size: 12px;
+    margin-left: 4px;
   }
 </style>
