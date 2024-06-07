@@ -1,23 +1,29 @@
 <script lang="ts">
-	import ArrowBarRight from '../icons/ArrowBarRight.svelte';
-	import ArrowReturnLeft from '../icons/ArrowReturnLeft.svelte';
-	import ArrowRightShort from '../icons/ArrowRightShort.svelte';
+	import { slide } from 'svelte/transition';
+	import Field from './fields/Field.svelte';
+	import ArrowBarRight from './icons/ArrowBarRight.svelte';
+	import ArrowReturnLeft from './icons/ArrowReturnLeft.svelte';
+	import ArrowRightShort from './icons/ArrowRightShort.svelte';
 
 	type Props = {
-		slideConfig: SlideConfig | InitialSlideConfig | FinalSlideConfig;
+		slideConfig: SlideFieldConfig | InitialSlideConfig | FinalSlideConfig;
 		config: DevFormConfig;
 		isFocus?: boolean;
 		index: number;
 		onNext?: (props: {
-			slideConfig: SlideConfig | InitialSlideConfig | FinalSlideConfig;
+			slideConfig: SlideFieldConfig | InitialSlideConfig | FinalSlideConfig;
 			config: DevFormConfig;
 			index: number;
 		}) => void;
 	};
+
 	let { slideConfig, config, index, onNext, isFocus }: Props = $props();
+
+	
+
 </script>
 
-<div class="slide-container" inert={!isFocus}>
+<div class="slide-container" inert={isFocus ? null : true}>
 	<div class="slide-body">
 		<div class="slide-number">
 			<span class="index">{index + 1}</span>
@@ -30,8 +36,12 @@
 			{#if slideConfig?.description}
 				<p class="description">{slideConfig?.description}</p>
 			{/if}
-			<!-- {#if slideConfig}
-      {/if} -->
+			{#if (slideConfig as SlideFieldConfig).type === "input"}
+				<Field
+					isFocus={!!isFocus}
+					config={slideConfig as SlideFieldConfig}
+				/>
+      {/if}
 			<div class="action">
 				<button class="btn-submit" onclick={() => onNext?.({ slideConfig, config, index })}>
 					{slideConfig?.labelNext || 'Next'}
@@ -66,7 +76,7 @@
 	}
 
 	h1 {
-		margin-bottom: 12px;
+		margin-bottom: 24px;
 		font-size: var(--dev-form-font-size);
 		color: rgb(var(--dev-form-font-color-rgb));
 	}

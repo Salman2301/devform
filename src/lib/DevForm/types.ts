@@ -1,6 +1,6 @@
 type DevFormConfig = {
 	app?: AppConfig;
-	slides: SlideConfig[];
+	slides: SlideFieldConfig[];
 	initialSlide?: InitialSlideConfig;
 	finalSlide?: FinalSlideConfig;
 };
@@ -34,13 +34,6 @@ type AppConfig = {
 	};
 };
 
-type SlideConfig = {
-	title: string;
-	description?: string;
-	field?: FieldConfig;
-	labelNext?: string;
-};
-
 type BaseSlideConfig = {
 	title?: string;
 	description?: string;
@@ -55,9 +48,9 @@ type FinalSlideConfig = {
 	show?: boolean;
 } & BaseSlideConfig;
 
-type SlideFieldConfig = FieldConfig & BaseSlideConfig;
+type SlideFieldConfig = SlideFieldInputConfig;
 
-type FieldConfig = FieldInput;
+type SlideFieldInputConfig = FieldInput & BaseSlideConfig;
 
 type FieldInput =
 	| FieldFormatNumber
@@ -70,6 +63,7 @@ type FieldInput =
 
 type BaseFieldInput = {
 	type: 'input';
+	defaultValue?: string
 	placeholder?: string;
 	errorMessage?: string;
 };

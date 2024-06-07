@@ -1,6 +1,6 @@
 <script lang="ts">
-	import BuildSlide from './Slide/BuildSlide.svelte';
-	import { defaultConfig } from './constant/defaultConfig';
+	import BuildSlide from './BuildSlide.svelte';
+	import { defaultConfig } from './configs/defaultConfig';
 
 	type Props = {
 		config: DevFormConfig;
@@ -108,17 +108,14 @@
 			/>
 		{/if}
 		{#each config.slides as slideConfig, index}
-			<!-- {#if currentIndex === index - (hasInitialSlide ? 1 : 0)} -->
 			<BuildSlide
 				{slideConfig}
 				{config}
 				index={index + 1}
 				onNext={handleNext}
-				isFocus={currentIndex === index - (hasInitialSlide ? 1 : 0)}
+				isFocus={currentIndex === (index + (hasInitialSlide ? 1 : 0))}
 			/>
-			<!-- {/if} -->
 		{/each}
-		<!-- {#if currentIndex === totalSlide} -->
 		<BuildSlide
 			slideConfig={config.finalSlide!}
 			{config}
@@ -126,7 +123,6 @@
 			onNext={handleNext}
 			isFocus={currentIndex === totalSlide}
 		/>
-		<!-- {/if} -->
 	</div>
 </div>
 

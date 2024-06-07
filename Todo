@@ -18,3 +18,10 @@ Fields:
   ☐ FileUpload
   ☐ ImageUpload
   ☐ VideoUpload
+
+Later Fix:
+  ☐ Arrow in submit slide should not submit
+    ☐ Only enter or mouse click is allowed.
+  ☐ On Enter run validation check
+Feature:
+  ☐ Autofill based on the URl Query

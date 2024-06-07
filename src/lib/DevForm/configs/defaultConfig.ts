@@ -25,10 +25,9 @@ export let defaultConfig: DevFormConfig = {
 		{
 			title: 'Form Input',
 			description: '',
-			field: {
-				type: 'input',
-				formatType: 'number'
-			}
+			type: "input",
+			formatType: "email",
+			placeholder: "Enter your email",
 		}
 	],
 	initialSlide: {
