@@ -3,6 +3,7 @@
 	import ArrowBarRight from './icons/ArrowBarRight.svelte';
 	import ArrowReturnLeft from './icons/ArrowReturnLeft.svelte';
 	import ArrowRightShort from './icons/ArrowRightShort.svelte';
+	import Command from './icons/Command.svelte';
 
 	type Props = {
 		slideConfig: SlideFieldConfig | InitialSlideConfig | FinalSlideConfig;
@@ -70,7 +71,12 @@
 					{slideConfig?.labelNext || 'Next'}
 					<span class="btn-submit-icon"><ArrowRightShort /></span>
 				</button>
-				<span class="label-next">Press <span>Enter</span> <ArrowReturnLeft /> </span>
+				<span class="label-next">Press <span class="label-next-icon">
+					{#if (slideConfig as SlideFieldConfig).type === "long-text"}
+						<Command /> +
+					{/if}
+					Enter
+				</span> <ArrowReturnLeft /> </span>
 			</div>
 		</div>
 	</div>
@@ -175,6 +181,12 @@
 			font-weight: bold;
 			margin: 0px 8px;
 		}
+	}
+
+	.label-next-icon {
+		display: flex;
+		align-items: center;
+		gap: 4px;
 	}
 
 	.error-message { 
