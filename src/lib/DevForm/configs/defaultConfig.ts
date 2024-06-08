@@ -23,6 +23,15 @@ export let defaultConfig: DevFormConfig = {
 	},
 	slides: [
 		{
+			type: "select",
+			options: ["Some option", "Other option", "Some other option", "This is a long text options and it will be scrollable"],
+			title: 'Multiple options',
+			description: 'Use keypad 1 to 4 to select multiple options and Enter to continue',
+			required: true,
+			wrap: false,
+			multiple: true
+		},
+		{
 			type: "rate",
 			title: 'Select a rating',
 			required: true,
@@ -36,14 +45,6 @@ export let defaultConfig: DevFormConfig = {
 			required: true,
 			placeholder: "Enter your feedback",
 			description: 'Press Escape to focus on the slide, and use Enter to navigate to the next slide or Use <i>cmd / win + Enter</i> to go next',
-		},
-		{
-			type: "select",
-			options: ["Some option", "Other option", "Some other option", "This is a long text options and it will be scrollable"],
-			title: 'Multiple options',
-			description: 'Use keypad 1 to 4 to select multiple options and Enter to continue',
-			required: true,
-			multiple: true
 		},
 		{
 			type: "select",

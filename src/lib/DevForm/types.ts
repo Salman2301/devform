@@ -64,6 +64,7 @@ type SlideFieldSelectConfig = {
 	multiple?: boolean;
 	required?: boolean;
 	defaultValue?: string;
+	wrap?: boolean;
 } & BaseSlideConfig;
 
 type SlideFieldLongTextConfig = {

@@ -29,7 +29,10 @@
 
 </script>
 
-<div class="select-container">  
+<div
+  class="select-container"
+  class:wrap={config.wrap}
+>
   {#each config.options as value, index}
     <button
       class="option"
@@ -55,8 +58,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-width: 180px;
+    min-width: max-content;
     height: 46px;
+
 
     &:hover {
       background-color: rgba(var(--dev-form-brand-color-rgb), 0.6);
@@ -69,12 +73,18 @@
   }
 
   .select-container {
-    width: 100%;
     height: 100%;
     display: flex;
-    flex-wrap: wrap;
     column-gap: 32px;
     row-gap: 16px;
+    flex-direction: column;
+    width: min-content;
+
+    &.wrap {
+      flex-wrap: wrap;
+      flex-direction: row;
+      width: 100%;
+    }
   }
   .kbd {
     width: 20px;
