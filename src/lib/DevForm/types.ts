@@ -40,6 +40,7 @@ type BaseSlideConfig = {
 	labelNext?: string;
 	required?: boolean;
 	validate?: () => Promise<boolean>;
+	errorMessage?: string;
 };
 
 type InitialSlideConfig = {
@@ -50,7 +51,7 @@ type FinalSlideConfig = {
 	show?: boolean;
 } & BaseSlideConfig;
 
-type SlideFieldConfig = SlideFieldShortTextConfig | SlideFieldSelectConfig | SlideFieldLongTextConfig;
+type SlideFieldConfig = SlideFieldShortTextConfig | SlideFieldSelectConfig | SlideFieldLongTextConfig | SlideFieldRateConfig;
 
 type SlideFieldShortTextConfig = FieldShortText & BaseSlideConfig;
 
@@ -63,14 +64,19 @@ type SlideFieldSelectConfig = {
 	multiple?: boolean;
 	required?: boolean;
 	defaultValue?: string;
-	errorMessage?: string;
 } & BaseSlideConfig;
 
 type SlideFieldLongTextConfig = {
 	type: 'long-text';
 	maxLength?: number;
 	placeholder?: string;
-	errorMessage?: string;
+} & BaseSlideConfig;
+
+
+type SlideFieldRateConfig = {
+	type: 'rate';
+	max?: number;
+	icon?: "star" | "heart" | "thumbs-up" | "thumbs-down";
 } & BaseSlideConfig;
 
 type FieldShortText =

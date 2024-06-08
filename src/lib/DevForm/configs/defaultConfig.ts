@@ -23,6 +23,14 @@ export let defaultConfig: DevFormConfig = {
 	},
 	slides: [
 		{
+			type: "rate",
+			title: 'Select a rating',
+			required: true,
+			description: 'Use keypad to select and continue',
+
+			max: 10
+		},
+		{
 			type: "long-text",
 			title: 'Long text',
 			required: true,

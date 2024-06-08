@@ -2,6 +2,7 @@
 	import ShortText from './ShortText.svelte';
 	import Select from './Select.svelte';
 	import TextArea from './TextArea.svelte';
+	import Rate from './Rate.svelte';
 
 	type Props = {
 		config: SlideFieldConfig;
@@ -21,6 +22,7 @@
 		if (config.type === 'short-text') return shortTextIsValid();
 		if (config.type === 'select') return selectIsValid();
 		if (config.type === 'long-text') return longTextIsValid();
+		if (config.type === 'rate') return rateIsValid();
 
 		return false;
 	}
@@ -65,6 +67,12 @@
 		return true;
 	}
 
+	function rateIsValid() {
+    if( config.type !== "rate" ) return false;
+		if( config.required && !value ) return false;
+		return true;
+	}
+
   let selected: number[] = $state([]);
 
   function handleKeyDown(e: KeyboardEvent) {
@@ -103,4 +111,6 @@
 	<Select {config} bind:value bind:selected={selected} {next}/>
 {:else if config.type === 'long-text'}
 	<TextArea {config} bind:value {isFocus} {next} />
+{:else if config.type === 'rate'}
+	<Rate {config} bind:value {isFocus} {next} />
 {/if}
