@@ -1,5 +1,5 @@
 {
-	"name": "devform",
+	"name": "devform-svelte",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",
@@ -36,5 +36,12 @@
 		"vitest": "^1.2.0"
 	},
 	"type": "module",
-	"license": "MIT"
+	"license": "MIT",
+	"files": ["dist"],
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js"
+		}
+	}
 }
