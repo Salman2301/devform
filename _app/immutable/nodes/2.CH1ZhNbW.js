@@ -1,0 +1,1 @@
+import{a as r,t}from"../chunks/disclose-version.DT3gz_Os.js";const o=!0,l=Object.freeze(Object.defineProperty({__proto__:null,prerender:o},Symbol.toStringTag,{value:"Module"}));var p=t('<a href="./sample">Sample</a>');function s(e){var a=p();r(e,a)}export{s as component,l as universal};
