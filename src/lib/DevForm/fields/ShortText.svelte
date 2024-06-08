@@ -15,7 +15,11 @@
   let ref: HTMLInputElement | null = $state(null);
   
   $effect(() => {
-    if (isFocus && ref) ref?.focus?.();
+    if (isFocus && ref )  {
+      setTimeout(() => {
+        ref?.focus?.();
+      }, 300);
+    }
   });
 
   function handleKeyDown(e: KeyboardEvent) {
@@ -48,6 +52,10 @@
     min-width: 400px;
     height: 46px;
     outline: none;
+    
+    &:focus {
+      background-color: rgba(var(--dev-form-brand-color-rgb), 0.1);
+    }
   }
 
 </style>

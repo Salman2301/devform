@@ -1,20 +1,31 @@
 <script lang="ts">
 	import { blurOnEscape } from "../action/blurOnEscape";
 
-
   type Props = {
     config: SlideFieldLongTextConfig;
     value: string;
     isFocus: boolean;
+    next: ()=>void;
   }
 
-  let { value=$bindable(), config, isFocus }: Props = $props();
+  let { value=$bindable(), config, isFocus, next }: Props = $props();
 
   let ref: HTMLTextAreaElement | null = $state(null);
 
   $effect(() => {
-    if (isFocus && ref) ref?.focus?.();
+    if (isFocus && ref )  {
+      setTimeout(() => {
+        ref?.focus?.();
+      }, 300);
+    }
   });
+
+  function handleKeyDown(e: KeyboardEvent) {
+		if( e.key === "Enter" && e.metaKey) {
+      e.preventDefault();
+      next?.();
+    }
+  }
 </script>
 
 <textarea
@@ -22,6 +33,7 @@
   bind:value="{value}"
   use:blurOnEscape
   bind:this={ref}
+  onkeydown={handleKeyDown}
 >
 </textarea>
 
@@ -39,5 +51,9 @@
     min-width: 400px;
     height: 180px;
     outline: none;
+
+    &:focus {
+      background-color: rgba(var(--dev-form-brand-color-rgb), 0.1);
+    }
   }
 </style>

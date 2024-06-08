@@ -50,7 +50,7 @@
 				<h1>{slideConfig?.title}</h1>
 			{/if}
 			{#if slideConfig?.description}
-				<p class="description">{slideConfig?.description}</p>
+				<p class="description">{@html slideConfig?.description}</p>
 			{/if}
 			{#if !!(slideConfig as SlideFieldConfig).type}
 				<Field

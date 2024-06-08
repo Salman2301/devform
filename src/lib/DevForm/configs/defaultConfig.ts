@@ -27,7 +27,7 @@ export let defaultConfig: DevFormConfig = {
 			title: 'Long text',
 			required: true,
 			placeholder: "Enter your feedback",
-			description: 'Press Escape to focus on the slide, and use Enter to navigate to the next slide',
+			description: 'Press Escape to focus on the slide, and use Enter to navigate to the next slide or Use <i>cmd / win + Enter</i> to go next',
 		},
 		{
 			type: "select",
@@ -52,6 +52,7 @@ export let defaultConfig: DevFormConfig = {
 			description: '',
 			formatType: "email",
 			placeholder: "Enter your email",
+			errorMessage: "Please enter a valid email (Custom error message)"
 		}
 	],
 	initialSlide: {

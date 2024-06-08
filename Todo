@@ -9,6 +9,10 @@ Fields:
     ✔ Phone @done(24-06-08 03:09)
     ✘ Address @cancelled(24-06-08 03:09)
   ✔ Long Text @done(24-06-08 04:12)
+  ☐ Rate Input
+  ☐ Register component
+
+
   ☐ Number
   ☐ Date
   ☐ Time
@@ -27,3 +31,11 @@ Feature:
   ☐ Autofill based on the URl Query
   ✔ Before submit run all the validations @done(24-06-08 04:14)
     ✔ On validation error show error message and redirect to the slide @done(24-06-08 04:14)
+    
+Github Action:
+  ☐ Update the readme
+  ☐ Update the documentation page
+  ☐ Add the demo page
+    ☐ Survey
+    ☐ Few other forms
+    ☐ Different colors
