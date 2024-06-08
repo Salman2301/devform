@@ -110,7 +110,7 @@
 {:else if config.type === 'select'}
 	<Select {config} bind:value bind:selected={selected} {next}/>
 {:else if config.type === 'long-text'}
-	<TextArea {config} bind:value {isFocus} {next} />
+	<TextArea {config} bind:value {isFocus} {next} {prev} />
 {:else if config.type === 'rate'}
 	<Rate {config} bind:value {isFocus} {next} />
 {/if}

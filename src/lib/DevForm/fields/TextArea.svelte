@@ -6,9 +6,10 @@
     value: string;
     isFocus: boolean;
     next: ()=>void;
+    prev: ()=>void;
   }
 
-  let { value=$bindable(), config, isFocus, next }: Props = $props();
+  let { value=$bindable(), config, isFocus, next, prev }: Props = $props();
 
   let ref: HTMLTextAreaElement | null = $state(null);
 
@@ -23,7 +24,8 @@
   function handleKeyDown(e: KeyboardEvent) {
 		if( e.key === "Enter" && e.metaKey) {
       e.preventDefault();
-      next?.();
+      if(e.shiftKey) prev?.();
+      else next?.();
     }
   }
 </script>
