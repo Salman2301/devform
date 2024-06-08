@@ -16,7 +16,7 @@
     if (isFocus && ref )  {
       setTimeout(() => {
         ref?.focus?.();
-      }, 300);
+      }, 700);
     }
   });
 
